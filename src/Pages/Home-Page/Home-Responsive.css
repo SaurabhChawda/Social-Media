@@ -1,0 +1,22 @@
+@media screen and (max-width: 1200px) {
+  .page--Container {
+    grid-template-columns: 200px auto 250px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .page--Container {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header header header"
+      "main main main";
+  }
+  .main--container {
+    grid-area: main;
+  }
+  .nav-bar__img--logo {
+    margin-left: auto;
+  }
+  .sidebar {
+    visibility: hidden;
+  }
+}
