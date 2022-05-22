@@ -1,5 +1,5 @@
 import "./App.css";
-import { Home } from "./Pages/Index";
+import { Home, Post } from "./Pages/Index";
 import { Route, Routes } from "react-router-dom";
 import { useTheme } from "./Contexts/Index";
 function App() {
@@ -8,6 +8,7 @@ function App() {
     <div className="app" theme={themeToggle}>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/post" element={<Post />}></Route>
       </Routes>
     </div>
   );

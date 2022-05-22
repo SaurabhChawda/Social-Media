@@ -1,0 +1,76 @@
+.post {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+}
+.post-card {
+  margin: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 1px rgb(167, 167, 167);
+  background-color: var(--secondary-bg-color);
+  max-width: 40rem;
+  width: 100%;
+}
+.post-card__header--container {
+  padding: 0.5rem;
+}
+.post-card-profile--container {
+  display: flex;
+  align-items: flex-end;
+}
+.post-card__img--profile {
+  width: 2.5rem;
+  border-radius: 50%;
+}
+.post-card--userName {
+  color: var(--primary-theme-color);
+  font-size: 1.2rem;
+  padding: 0 8px;
+}
+.post-card__label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.post-card__img--container {
+  position: relative;
+}
+.post-card__input--post {
+  display: none;
+}
+.post-card__img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+}
+.post-card--caption {
+  width: 98.5%;
+  padding: 0.5rem;
+  resize: none;
+  margin: 4px;
+  font-size: var(--font-size-regular);
+}
+.post-card__btn--container {
+  display: flex;
+  justify-content: center;
+}
+.post-card__btn {
+  font-weight: 900;
+  margin: 0px 8px 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  color: var(--secondary-theme-color);
+  background-color: var(--primary-color);
+  padding: 8px 16px;
+  font-size: var(--font-size-regular);
+}
+@media screen and (max-width: 400px) {
+  .post-card {
+    margin: 1rem 8px;
+  }
+}

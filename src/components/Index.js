@@ -5,4 +5,5 @@ export { SearchBar } from "./SearchBar/SearchBar.jsx";
 export { Filter } from "./Filter/Filter.jsx";
 export { Aside } from "./Aside/Aside.jsx";
 export { HomePageCard } from "./HomePageCard/HomePageCard.jsx";
+export { PostPageCard } from "./PostPageCard/PostpageCard.jsx";
 export { SuggestedUser } from "./SuggestedUser/SuggestedUser.jsx";
