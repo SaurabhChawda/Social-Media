@@ -7,3 +7,4 @@ export { Aside } from "./Aside/Aside.jsx";
 export { HomePageCard } from "./HomePageCard/HomePageCard.jsx";
 export { PostPageCard } from "./PostPageCard/PostpageCard.jsx";
 export { SuggestedUser } from "./SuggestedUser/SuggestedUser.jsx";
+export { ProfileCard } from "./ProfileCard/ProfileCard.jsx";

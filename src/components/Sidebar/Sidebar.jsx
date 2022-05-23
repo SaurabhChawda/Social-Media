@@ -11,7 +11,7 @@ export function Sidebar() {
       <div className="sidebar">
         <div className="sidebar__list--container">
           <NavLink to="/" className="sidebar__list">
-              <MdOutlineHome size={30} color={themeToggle === "light" ? "black" : "white"} />
+            <MdOutlineHome size={30} color={themeToggle === "light" ? "black" : "white"} />
             <h3 className="sidebar--content">Home</h3>
           </NavLink>
           <li className="sidebar__list">
@@ -22,10 +22,10 @@ export function Sidebar() {
             <MdOutlinePostAdd size={30} color={themeToggle === "light" ? "black" : "white"} />
             <h3 className="sidebar--content">Post</h3>
           </NavLink>
-          <li className="sidebar__list">
+          <NavLink to="/profile" className="sidebar__list">
             <CgProfile size={25} color={themeToggle === "light" ? "black" : "white"} />
             <h3 className="sidebar--content">Profile</h3>
-          </li>
+          </NavLink>
         </div>
       </div>
     </div>
