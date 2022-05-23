@@ -8,3 +8,4 @@ export { HomePageCard } from "./HomePageCard/HomePageCard.jsx";
 export { PostPageCard } from "./PostPageCard/PostpageCard.jsx";
 export { SuggestedUser } from "./SuggestedUser/SuggestedUser.jsx";
 export { ProfileCard } from "./ProfileCard/ProfileCard.jsx";
+export { Modal } from "./Modal/Modal.jsx";

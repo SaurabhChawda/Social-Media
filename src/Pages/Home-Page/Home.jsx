@@ -4,7 +4,7 @@ import { Nav, NavForTab, Sidebar, Aside, HomePageCard } from "../../components/I
 export function Home() {
   return (
     <div className="page--Container">
-      <Nav hideComponent={true} />
+      <Nav showSearchBar={true} showLoginBtn={true} showThemeBtn={true} />
       <NavForTab />
       <Sidebar />
       <Aside />

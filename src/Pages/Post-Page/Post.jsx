@@ -4,7 +4,7 @@ import { Nav, NavForTab, Sidebar,PostPageCard} from "../../components/Index";
 export function Post() {
   return (
     <div className="post-page--Container">
-      <Nav hideComponent={false} />
+      <Nav showSearchBar={false} showLoginBtn={false} showThemeBtn={true} />
       <NavForTab />
       <Sidebar />
       <main className="post__main--container">
