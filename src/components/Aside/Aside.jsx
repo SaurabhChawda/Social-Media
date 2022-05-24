@@ -6,9 +6,6 @@ export function Aside() {
       <div className="aside">
         <Filter />
         <SuggestedUser />
-        <SuggestedUser />
-        <SuggestedUser />
-        <SuggestedUser />
       </div>
     </div>
   );
