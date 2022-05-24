@@ -44,6 +44,7 @@
 .profileCard-userData--demo {
   text-align: center;
   font-weight: 500;
+  color: var(--primary-theme-color);
 }
 .profileCard-userbio {
   margin: 4px 0;
