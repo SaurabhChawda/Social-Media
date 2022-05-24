@@ -3,6 +3,7 @@ import { Home, Post, Profile, Login, SignUp } from "./Pages/Index";
 import { PrivateRoute } from "./PrivateRoute/PrivateRoute.jsx";
 import { Route, Routes } from "react-router-dom";
 import { useTheme } from "./Contexts/Index";
+import Mockman from "mockman-js";
 
 function App() {
   const { themeToggle } = useTheme();
@@ -35,6 +36,7 @@ function App() {
         ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/SignUp" element={<SignUp />}></Route>
+        <Route path="/mockMan" element={<Mockman />}></Route>
       </Routes>
     </div>
   );

@@ -1,19 +1,13 @@
 import "./nav.css";
 import { Link } from "react-router-dom";
-import { MdDarkMode, MdLightMode, MdOutlineLogout} from "react-icons/md";
-import { useNavigate } from "react-router";
-import { SearchBar } from "../Index.js";
-import { useTheme, useAuth } from "../../Contexts/Index";
+import { MdDarkMode, MdLightMode, MdOutlineLogout } from "react-icons/md";
 import { useState } from "react";
-import { Modal } from "../Index";
+import { SearchBar, LogoutModal } from "../Index.js";
+import { useTheme } from "../../Contexts/Index";
 
 export function Nav({ showSearchBar, showLoginBtn, showThemeBtn }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const [logoutModal, setLogoutModal] = useState(false);
   const { themeToggle, setThemeToggle } = useTheme();
-  const {
-    authState: { isUserLoggedIn },
-  } = useAuth();
   return (
     <div>
       <nav className="nav-bar nav-bar--simple">
@@ -29,7 +23,7 @@ export function Nav({ showSearchBar, showLoginBtn, showThemeBtn }) {
               <MdOutlineLogout
                 size={25}
                 color={themeToggle === "light" ? "black" : "white"}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setLogoutModal(!logoutModal)}
               />
             </li>
           )}
@@ -56,7 +50,7 @@ export function Nav({ showSearchBar, showLoginBtn, showThemeBtn }) {
           )}
         </ul>
       </nav>
-      {isOpen && <Modal value={{ isOpen, setIsOpen }} />}
+      {logoutModal && <LogoutModal value={{ logoutModal, setLogoutModal }} />}
     </div>
   );
 }

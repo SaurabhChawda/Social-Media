@@ -35,7 +35,7 @@
 }
 .profileCard-userData--container {
   width: 80%;
-  margin-left: 2rem;
+  margin: 1rem 0 0 2rem;
 }
 .profileCard-userData {
   display: flex;
@@ -44,6 +44,10 @@
 .profileCard-userData--demo {
   text-align: center;
   font-weight: 500;
+  color: var(--primary-theme-color);
+}
+.profileCard-userFullName {
+  margin-top: 4px;
   color: var(--primary-theme-color);
 }
 .profileCard-userbio {
@@ -79,6 +83,12 @@
   }
   .profileCard-userData {
     margin-top: 1rem;
+    justify-content: center;
+  }
+  .profileCard-userbio, .profileCard-userFullName {
+    text-align: center;
+  }
+  .profileCard-userWebsiteLink {
     justify-content: center;
   }
 }

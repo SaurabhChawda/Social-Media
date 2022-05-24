@@ -1,7 +1,7 @@
-import "./modal.css";
+import "./LogoutModal.css";
 import { useAuth } from "../../Contexts/Index";
-export const Modal = ({ value }) => {
-  const { isOpen, setIsOpen } = value;
+export const LogoutModal = ({ value }) => {
+  const { logoutModal, setLogoutModal } = value;
   const { logoutCredentials } = useAuth();
   return (
     <div className="overlay">
@@ -11,13 +11,13 @@ export const Modal = ({ value }) => {
           <button
             className="modal__btn--demo modal__btn--yes"
             onClick={() => {
-              setIsOpen(!isOpen);
+              setLogoutModal(!logoutModal);
               logoutCredentials();
             }}
           >
             Yes
           </button>
-          <button className="modal__btn--demo modal__btn--no" onClick={() => setIsOpen(!isOpen)}>
+          <button className="modal__btn--demo modal__btn--no" onClick={() => setLogoutModal(!logoutModal)}>
             No
           </button>
         </div>
