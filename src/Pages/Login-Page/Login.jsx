@@ -68,8 +68,14 @@ export function Login() {
                 <button className="login-form__btn--forget-password">Forget password ?</button>
               </div>
               <div className="login-form--submit">
-                <button className="login-form__btn--submit" onClick={(event) => loginHandler(event, userLogin)}>
+                <button className="login-form__btn--submit " onClick={(event) => loginHandler(event, userLogin)}>
                   Login
+                </button>
+                <button
+                  className="login-form__btn--submit login-form__btn--submit-guest"
+                  onClick={(event) => loginHandler(event, { username: "Sauuu__ra__bh", password: "admin" })}
+                >
+                  Login As Guest
                 </button>
               </div>
               <div className="login-form--new-account">

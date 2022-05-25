@@ -5,9 +5,8 @@ import { useUser } from "../../Contexts/Index";
 export const ProfileCard = () => {
   const [editProfileModalOpen, setEditProfileModalopen] = useState(false);
   const {
-    state: { post, user },
+    state: { userPostsList, user, userFollowers, userFollowing },
   } = useUser();
-  // const user = JSON.parse(localStorage.getItem("login"));
   return (
     <>
       {Object.keys(user).length !== 0 && (
@@ -25,15 +24,15 @@ export const ProfileCard = () => {
                   <div className="profileCard-userData--container">
                     <div className="profileCard-userData">
                       <span className="profileCard-userData--demo">
-                        <p>{post.length}</p>
+                        <p>{userPostsList.length}</p>
                         <p>Posts</p>
                       </span>
                       <span className="profileCard-userData--demo">
-                        <p>{user.followers.length}</p>
+                        <p>{userFollowers.length}</p>
                         <p>Followers</p>
                       </span>
                       <span className="profileCard-userData--demo">
-                        <p>{user.following.length}</p>
+                        <p>{userFollowing.length}</p>
                         <p>Following</p>
                       </span>
                     </div>

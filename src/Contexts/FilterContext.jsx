@@ -4,7 +4,6 @@ const FilterContext = createContext(null);
 
 const FilterProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, { filteredData: [] });
-
   return <FilterContext.Provider value={{ state, dispatch }}>{children}</FilterContext.Provider>;
 };
 

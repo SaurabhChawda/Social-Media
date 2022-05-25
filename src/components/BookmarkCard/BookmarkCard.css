@@ -1,70 +1,65 @@
-.user-post-card--wrapper {
+.bookmark-card {
+  display: grid;
   justify-content: center;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 }
-.user-post-card {
-  margin: 1.5rem;
+.bookmark-card--container {
+  margin: 1rem;
   border-radius: 8px;
   box-shadow: 0px 0px 5px 1px rgb(167, 167, 167);
   background-color: var(--secondary-bg-color);
-  max-width: 45rem;
+  max-width: 20rem;
+  height: fit-content;
 }
-.user-post-card__header-container {
+.bookmark-card__header-container {
   padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.user-post-card__img--container {
+.bookmark-card__img--container {
   display: flex;
   align-items: center;
 }
-.user-post-card__img--Profile {
+.bookmark-card__img--Profile {
   width: 2.5rem;
   border-radius: 50%;
 }
-.user-post-card--userName {
+.bookmark-card--userName {
   color: var(--primary-theme-color);
   font-size: 1.2rem;
   padding: 0 8px;
 }
-.user-post-card__btn--demo{
-  padding:2px 4px ;
-}
-.user-post-card-Content--container {
+.bookmark-card-Content--container {
   padding: 0.5rem;
 }
-.user-post-card__image {
+.bookmark-card__image {
   width: 100%;
 }
-.user-post-card-icon{
-  cursor: pointer;
-  position: relative;
-}
-.user-post-card-content {
+.bookmark-card-content {
   text-align: justify;
   font-size: var(--font-size-regular);
   font-weight: 100;
   color: var(--primary-theme-color);
 }
-.user-post-card-primary-icon--container {
+.bookmark-card-primary-icon--container {
   padding: 0.5rem;
   display: flex;
   justify-content: space-evenly;
 }
-.user-post-card--icon__list {
+.bookmark-card--icon__list {
   cursor: pointer;
 }
-.user-post-card-like--icon{
+.bookmark--empty{
   display: flex;
   justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.user-post-card-like--icon-text{
+  margin-top: 15rem;
+  font-size: var(--font-size-X-large);
   color: var(--primary-theme-color);
 }
 @media screen and (max-width: 400px) {
-  .user-post-card {
+  .bookmark-card--container {
     margin: 1rem 8px;
   }
 }

@@ -1,13 +1,21 @@
 import "./HomePageCard.css";
+import { useState } from "react";
 import { MdOutlineInsertComment } from "react-icons/md";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 import { useTheme, useUser, useSearch } from "../../Contexts/Index";
 
 export const HomePageCard = () => {
+  const user = JSON.parse(localStorage.getItem("login"));
+  const [commentToggle, setCommentToggle] = useState(false);
+  const [commentId, setCommentId] = useState();
   const { themeToggle } = useTheme();
   const {
-    state: { allPost },
+    state: { bookmarks },
+    AddToBookmark,
+    RemoveFromBookmark,
+    LikePostHandler,
+    DisLikePostHandler,
   } = useUser();
   const { updatedData } = useSearch();
   return (
@@ -34,13 +42,92 @@ export const HomePageCard = () => {
                 <hr></hr>
                 <div className="home-card-footer--container">
                   <div className="home-card-primary-icon--container">
-                    <AiOutlineLike size={25} color={themeToggle === "light" ? "black" : "white"} />
-                    <MdOutlineInsertComment size={25} color={themeToggle === "light" ? "black" : "white"} />
-                    <BsBookmark size={25} color={themeToggle === "light" ? "black" : "white"} />
+                    <div className="home-card-like--icon">
+                      <span>
+                        {item.likes.likedBy !== 0 ? (
+                          item.likes.likedBy.some((value) => value.username === user.user.username) ? (
+                            <AiTwotoneLike
+                              size={25}
+                              color={themeToggle === "light" ? "black" : "white"}
+                              onClick={() => {
+                                DisLikePostHandler(item);
+                              }}
+                            />
+                          ) : (
+                            <AiOutlineLike
+                              size={25}
+                              color={themeToggle === "light" ? "black" : "white"}
+                              onClick={() => {
+                                LikePostHandler(item);
+                              }}
+                            />
+                          )
+                        ) : (
+                          <AiOutlineLike
+                            size={25}
+                            color={themeToggle === "light" ? "black" : "white"}
+                            onClick={() => {
+                              LikePostHandler(item);
+                            }}
+                          />
+                        )}
+                      </span>
+                      <span className="home-card-like--icon-text">
+                        {item.likes.likeCount > 0 && item.likes.likeCount} Likes
+                      </span>
+                    </div>
+
+                    <MdOutlineInsertComment
+                      size={25}
+                      color={themeToggle === "light" ? "black" : "white"}
+                      onClick={() => {
+                        setCommentToggle(!commentToggle), setCommentId(item._id);
+                      }}
+                    />
+
+                    {bookmarks.length !== 0 ? (
+                      bookmarks.some((value) => value._id === item._id) ? (
+                        <BsBookmarkFill
+                          size={25}
+                          color={themeToggle === "light" ? "black" : "white"}
+                          onClick={() => RemoveFromBookmark(item)}
+                        />
+                      ) : (
+                        <BsBookmark
+                          size={25}
+                          color={themeToggle === "light" ? "black" : "white"}
+                          onClick={() => AddToBookmark(item)}
+                        />
+                      )
+                    ) : (
+                      <BsBookmark
+                        size={25}
+                        color={themeToggle === "light" ? "black" : "white"}
+                        onClick={() => AddToBookmark(item)}
+                      />
+                    )}
                   </div>
                   <div className="home-card-secondary-icon--container"></div>
                 </div>
               </div>
+              {commentToggle && item._id === commentId && (
+                <div>
+                  <hr></hr>
+                  <div className="home-card-comment-box--container">
+                    <div className="home-card-comment__img--container">
+                      <img className="home-card-comment__img--Profile" src={item.profile} />
+                    </div>
+                    <div className="home-card-comment--container">
+                      <p className="home-card-comment--name home-card-comment-userName">{item.username}</p>
+                      <p className="home-card-comment--name home-card-comment-firstName">Amazing Picture</p>
+                    </div>
+                  </div>
+                  <div className="home-card-comment-input-container">
+                    <input className="home-card-comment-input" type="text" placeholder="Write a Comment" />
+                    <button className="home-card-comment-send__btn">send</button>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}

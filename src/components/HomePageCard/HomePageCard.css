@@ -27,8 +27,8 @@
 .home-card-Content--container {
   padding: 0.5rem;
 }
-.home-card__image{
-  width:100%;
+.home-card__image {
+  width: 100%;
 }
 .home-card-content {
   text-align: justify;
@@ -41,8 +41,56 @@
   display: flex;
   justify-content: space-evenly;
 }
-.home-card--icon__list{
+.home-card-like--icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+}
+.home-card-like--icon-text {
+  color: var(--primary-theme-color);
+}
+.home-card-comment-box--container {
+  display: flex;
+  padding: 8px;
+}
+.home-card-comment--container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+}
+.home-card-comment-input-container {
+  padding: 8px;
+}
+.home-card-comment-input {
+  padding: 4px;
+  width: 90%;
+  border-radius: 8px 0 0px 8px;
+  border: none;
+}
+.home-card-comment-send__btn{
+  width: 10%;
+  padding: 4px 4px;
+  border-radius: 0 4px 4px 0 ;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--primary-theme-color);
+}
+.home-card-comment__img--Profile {
+  border-radius: 50%;
+  max-width: 3rem;
+}
+.home-card-comment-name--container {
+  padding-left: 0.8rem;
+}
+.home-card-comment--name {
+  padding: 2px;
+}
+.home-card-comment-userName {
+  color: var(--primary-theme-color);
+}
+.home-card-comment-firstName {
+  color: gray;
 }
 @media screen and (max-width: 400px) {
   .home-card {

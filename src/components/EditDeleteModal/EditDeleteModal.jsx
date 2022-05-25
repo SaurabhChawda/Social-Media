@@ -4,8 +4,8 @@ import { EditPostModal } from "../Index";
 import { useState } from "react";
 export const EditDeleteModal = ({ value }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const { item } = value;
-  const { DeleteUserPost } = useUser();
+  const { item, editDeleteModal, setEditDeleteModal } = value;
+  const { DeletePostHandler } = useUser();
   return (
     <div className="edit-modal">
       <button
@@ -20,12 +20,14 @@ export const EditDeleteModal = ({ value }) => {
       <button
         className="edit-modal__btn--demo edit-modal__btn--no"
         onClick={() => {
-          DeleteUserPost(item);
+          DeletePostHandler(item);
         }}
       >
         Delete
       </button>
-      {editModalOpen && <EditPostModal value={{ item, editModalOpen, setEditModalOpen }} />}
+      {editModalOpen && (
+        <EditPostModal value={{ item, editModalOpen, setEditModalOpen, editDeleteModal, setEditDeleteModal }} />
+      )}
     </div>
   );
 };

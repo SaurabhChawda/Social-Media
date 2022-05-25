@@ -4,8 +4,8 @@ import { useUser, useTheme } from "../../Contexts/Index";
 import { useState } from "react";
 
 export const EditPostModal = ({ value }) => {
-  const { item, editModalOpen, setEditModalOpen } = value;
-  const { UpdateUserPost } = useUser();
+  const { item, editModalOpen, setEditModalOpen, editDeleteModal, setEditDeleteModal } = value;
+  const { UpdatePostHandler } = useUser();
   const { themeToggle } = useTheme();
   const [postImage, setPostImage] = useState(item.image);
   const [postCaption, setPostCaption] = useState(item.caption);
@@ -20,8 +20,8 @@ export const EditPostModal = ({ value }) => {
         <div className="edit-post-card--container">
           <div className="edit-post-card__header--container">
             <div className="edit-post-card-profile--container">
-              <img className="edit-post-card__img--profile" src="/assets/image/Profile/Adarsh.jpg" />
-              <p className="edit-post-card--userName">Saurabh Chawda</p>
+              <img className="edit-post-card__img--profile" src={item.profile} />
+              <p className="edit-post-card--userName">{item.username}</p>
             </div>
             <div className="edit-post-card-icon--container">
               <span className="edit-post-card-icon">
@@ -30,6 +30,7 @@ export const EditPostModal = ({ value }) => {
                   color={themeToggle === "light" ? "dark" : "white"}
                   onClick={() => {
                     setEditModalOpen(!editModalOpen);
+                    setEditDeleteModal(!editDeleteModal);
                   }}
                 />
               </span>
@@ -65,7 +66,9 @@ export const EditPostModal = ({ value }) => {
           <button
             className="edit-post-card__btn"
             onClick={() => {
-              UpdateUserPost({ ...item, image: postImage, caption: postCaption }), setEditModalOpen(!editModalOpen);
+              UpdatePostHandler({ ...item, image: postImage, caption: postCaption }),
+                setEditModalOpen(!editModalOpen),
+                setEditDeleteModal(!editDeleteModal);
             }}
           >
             Update Post

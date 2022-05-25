@@ -5,53 +5,103 @@ export const Reducer = (state, action) => {
         ...state,
         user: { ...action.payload },
       };
-    case "Update_User_Profile":
+    case "Load_Users":
+      return {
+        ...state,
+        usersList: [...action.payload],
+      };
+    case "Load_User_Posts":
+      return {
+        ...state,
+        userPostsList: [...action.payload],
+      };
+    case "Load_Users_Posts":
+      return {
+        ...state,
+        usersPostsList: [...action.payload],
+      };
+    case "Load_User_bookmarks":
+      return {
+        ...state,
+        bookmarks: [...action.payload],
+      };
+    case "Load_Followers":
+      return {
+        ...state,
+        userFollowers: [...action.payload.followers],
+      };
+    case "Load_Following":
+      return {
+        ...state,
+        userFollowing: [...action.payload.following],
+      };
+    case "Create_Post":
+      return {
+        ...state,
+        userPostsList: [...state.userPostsList, action.payload[action.payload.length - 1]],
+      };
+    case "Update_Users_Post":
+      return {
+        ...state,
+        usersPostsList: [...action.payload],
+      };
+    case "Delete_Post":
+      return {
+        ...state,
+        usersPostsList: [...action.payload],
+      };
+    case "Edit_User_Post":
+      return {
+        ...state,
+        userPostsList: state.userPostsList.map((item) => (item._id === action.payload._id ? action.payload : item)),
+      };
+    case "Edit_User_Profile":
       return {
         ...state,
         user: { ...action.payload },
       };
-    case "Load_All_Users":
+    case "Add_To_Bookmarks":
       return {
         ...state,
-        allUser: [...state.allUser, ...action.payload],
+        bookmarks: [...state.bookmarks, action.payload],
       };
-    case "update_All_Post":
+    case "Remove_From_Bookmarks":
       return {
         ...state,
-        allPost: [...state.allPost, action.payload],
+        bookmarks: state.bookmarks.filter((item) => item._id !== action.payload._id),
       };
-    case "Load_All_Post":
+
+    case "Add_To_Like":
       return {
         ...state,
-        allPost: [...state.allPost, ...action.payload],
+        usersPostsList: [...action.payload],
       };
-    case "Load_User_Post":
+    case "Remove_From_Like":
       return {
         ...state,
-        post: [...state.post, ...action.payload],
+        usersPostsList: [...action.payload],
       };
-    case "Create_User_Post":
+    case "Add_To_Following":
       return {
         ...state,
-        post: [...state.post, action.payload],
+        userFollowing: [...action.payload],
       };
-    case "Delete_User_Post":
+    case "Remove_From_Following":
       return {
         ...state,
-        post: state.post.filter((item) => item._id !== action.payload),
-      };
-    case "Update_User_Post":
-      return {
-        ...state,
-        post: state.post.map((item) => (item._id === action.payload._id ? action.payload : item)),
+        userFollowing: [...action.payload],
       };
     case "Reset":
       return {
         ...state,
         user: {},
-        allUser: [],
-        post: [],
-        allPost: [],
+        usersList: [],
+        userPostsList: [],
+        usersPostsList: [],
+        bookmarks: [],
+        likedPost: [],
+        userFollowers: [],
+        userFollowing: [],
       };
     default:
       return action.payload;
