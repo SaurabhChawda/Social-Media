@@ -1,11 +1,10 @@
 import "./Filter.css";
-import { useFilter, useUser } from "../../Contexts/Index";
+import { useFilter } from "../../Contexts/Index";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 export const Filter = () => {
+  const usersPostsList = useSelector((state) => state.post.usersPostsList);
   const [filterableData, setFilterableData] = useState();
-  const {
-    state: { usersPostsList },
-  } = useUser();
 
   const { dispatch } = useFilter();
   useEffect(() => {

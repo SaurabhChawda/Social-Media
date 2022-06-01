@@ -61,11 +61,11 @@
 }
 .login-form--submit {
   text-align: center;
-  margin: 1rem 0 12px 0;
+  margin: 8px 0 12px 0;
 }
 .login-form__btn--submit {
+  margin-top: 8px;
   cursor: pointer;
-  margin: 4px 0;
   width: 100%;
   padding: 4px 1rem;
   font-size: var(--font-size-regular);

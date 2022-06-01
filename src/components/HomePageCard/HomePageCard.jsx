@@ -3,20 +3,18 @@ import { useState } from "react";
 import { MdOutlineInsertComment } from "react-icons/md";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
-import { useTheme, useUser, useSearch } from "../../Contexts/Index";
+import { useTheme, useSearch } from "../../Contexts/Index";
+import { useSelector, useDispatch } from "react-redux";
+import { AddToBookmark, RemoveFromBookmark, LikePostHandler, DisLikePostHandler } from "../../features/Posts/PostSlice";
 
 export const HomePageCard = () => {
-  const user = JSON.parse(localStorage.getItem("login"));
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const loggedInUserToken = useSelector((state) => state.auth.token);
+  const bookmarks = useSelector((state) => state.post.bookmarks);
   const [commentToggle, setCommentToggle] = useState(false);
   const [commentId, setCommentId] = useState();
   const { themeToggle } = useTheme();
-  const {
-    state: { bookmarks },
-    AddToBookmark,
-    RemoveFromBookmark,
-    LikePostHandler,
-    DisLikePostHandler,
-  } = useUser();
   const { updatedData } = useSearch();
   return (
     <div>
@@ -45,12 +43,12 @@ export const HomePageCard = () => {
                     <div className="home-card-like--icon">
                       <span>
                         {item.likes.likedBy !== 0 ? (
-                          item.likes.likedBy.some((value) => value.username === user.user.username) ? (
+                          item.likes.likedBy.some((value) => value.username === user.username) ? (
                             <AiTwotoneLike
                               size={25}
                               color={themeToggle === "light" ? "black" : "white"}
                               onClick={() => {
-                                DisLikePostHandler(item);
+                                dispatch(DisLikePostHandler({ post: item, token: loggedInUserToken }));
                               }}
                             />
                           ) : (
@@ -58,7 +56,7 @@ export const HomePageCard = () => {
                               size={25}
                               color={themeToggle === "light" ? "black" : "white"}
                               onClick={() => {
-                                LikePostHandler(item);
+                                dispatch(LikePostHandler({ post: item, token: loggedInUserToken }));
                               }}
                             />
                           )
@@ -67,7 +65,7 @@ export const HomePageCard = () => {
                             size={25}
                             color={themeToggle === "light" ? "black" : "white"}
                             onClick={() => {
-                              LikePostHandler(item);
+                              dispatch(LikePostHandler({ post: item, token: loggedInUserToken }));
                             }}
                           />
                         )}
@@ -76,7 +74,6 @@ export const HomePageCard = () => {
                         {item.likes.likeCount > 0 && item.likes.likeCount} Likes
                       </span>
                     </div>
-
                     <MdOutlineInsertComment
                       size={25}
                       color={themeToggle === "light" ? "black" : "white"}
@@ -90,20 +87,20 @@ export const HomePageCard = () => {
                         <BsBookmarkFill
                           size={25}
                           color={themeToggle === "light" ? "black" : "white"}
-                          onClick={() => RemoveFromBookmark(item)}
+                          onClick={() => dispatch(RemoveFromBookmark({ post: item, token: loggedInUserToken }))}
                         />
                       ) : (
                         <BsBookmark
                           size={25}
                           color={themeToggle === "light" ? "black" : "white"}
-                          onClick={() => AddToBookmark(item)}
+                          onClick={() => dispatch(AddToBookmark({ post: item, token: loggedInUserToken }))}
                         />
                       )
                     ) : (
                       <BsBookmark
                         size={25}
                         color={themeToggle === "light" ? "black" : "white"}
-                        onClick={() => AddToBookmark(item)}
+                        onClick={() => dispatch(AddToBookmark({ post: item, token: loggedInUserToken }))}
                       />
                     )}
                   </div>

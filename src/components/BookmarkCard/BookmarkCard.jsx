@@ -1,20 +1,17 @@
 import "./BookmarkCard.css";
-import { MdOutlineInsertComment } from "react-icons/md";
-import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
-import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
-import { useTheme, useUser, useSearch } from "../../Contexts/Index";
-
+import { BsBookmarkFill } from "react-icons/bs";
+import { useTheme } from "../../Contexts/Index";
+import { useSelector, useDispatch } from "react-redux";
+import { RemoveFromBookmark } from "../../features/Posts/PostSlice";
 export const BookmarkCard = () => {
+  const bookmarks = useSelector((state) => state.post.bookmarks);
+  const loggedInUserToken = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
   const { themeToggle } = useTheme();
-  const {
-    state: { bookmarks },
-    AddToBookmark,
-    RemoveFromBookmark,
-  } = useUser();
   return (
     <div className="bookmark-card">
       {bookmarks.length === 0 ? (
-        <h1 className="bookmark--empty">Your BookMarks is Empty !</h1>
+        <h1 className="bookmark--empty">No BookMarks yet!</h1>
       ) : (
         bookmarks.map((item) => {
           return (
@@ -36,25 +33,11 @@ export const BookmarkCard = () => {
               <hr></hr>
               <div className="bookmark-card-footer--container">
                 <div className="bookmark-card-primary-icon--container">
-                  {bookmarks.length !== 0 ? (
-                    bookmarks.some((value) => value._id === item._id) ? (
-                      <BsBookmarkFill
-                        size={25}
-                        color={themeToggle === "light" ? "black" : "white"}
-                        onClick={() => RemoveFromBookmark(item)}
-                      />
-                    ) : (
-                      <BsBookmark
-                        size={25}
-                        color={themeToggle === "light" ? "black" : "white"}
-                        onClick={() => AddToBookmark(item)}
-                      />
-                    )
-                  ) : (
-                    <BsBookmark
+                  {bookmarks.length !== 0 && bookmarks.some((value) => value._id === item._id) && (
+                    <BsBookmarkFill
                       size={25}
                       color={themeToggle === "light" ? "black" : "white"}
-                      onClick={() => AddToBookmark(item)}
+                      onClick={() => dispatch(RemoveFromBookmark({ post: item, token: loggedInUserToken }))}
                     />
                   )}
                 </div>

@@ -3,26 +3,26 @@ import { MdOutlineInsertComment } from "react-icons/md";
 import { useState } from "react";
 import { BsBookmark, BsBookmarkFill, BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
-import { useTheme, useUser } from "../../Contexts/Index";
+import { useTheme } from "../../Contexts/Index";
 import { EditDeleteModal, Modal } from "../Index";
+import { useSelector, useDispatch } from "react-redux";
+import { AddToBookmark, RemoveFromBookmark, LikePostHandler, DisLikePostHandler } from "../../features/Posts/PostSlice";
+
 export const UserPostCard = () => {
-  const user = JSON.parse(localStorage.getItem("login"));
+  const dispatch = useDispatch();
+  const bookmarks = useSelector((state) => state.post.bookmarks);
+  const usersPostsList = useSelector((state) => state.post.usersPostsList);
+  const user = useSelector((state) => state.auth.user);
+  const loggedInUserToken = useSelector((state) => state.auth.token);
   const [modalId, setModalId] = useState();
   const [editDeleteModal, setEditDeleteModal] = useState(false);
   const { themeToggle } = useTheme();
-  const {
-    state: { bookmarks, usersPostsList },
-    AddToBookmark,
-    RemoveFromBookmark,
-    LikePostHandler,
-    DisLikePostHandler,
-  } = useUser();
 
   return (
     <div className="user-post-card--wrapper">
       {usersPostsList.length !== 0 &&
         usersPostsList
-          .filter((value) => value.username === user.user.username)
+          .filter((value) => value.username === user.username)
           .map((item) => {
             return (
               <div key={item._id} className="user-post-card">
@@ -62,12 +62,12 @@ export const UserPostCard = () => {
                       <div className="user-post-card-like--icon">
                         <span>
                           {item.likes.likedBy !== 0 ? (
-                            item.likes.likedBy.some((value) => value.username === user.user.username) ? (
+                            item.likes.likedBy.some((value) => value.username === user.username) ? (
                               <AiTwotoneLike
                                 size={25}
                                 color={themeToggle === "light" ? "black" : "white"}
                                 onClick={() => {
-                                  DisLikePostHandler(item);
+                                  dispatch(DisLikePostHandler({ post: item, token: loggedInUserToken }));
                                 }}
                               />
                             ) : (
@@ -75,7 +75,7 @@ export const UserPostCard = () => {
                                 size={25}
                                 color={themeToggle === "light" ? "black" : "white"}
                                 onClick={() => {
-                                  LikePostHandler(item);
+                                  dispatch(LikePostHandler({ post: item, token: loggedInUserToken }));
                                 }}
                               />
                             )
@@ -84,7 +84,7 @@ export const UserPostCard = () => {
                               size={25}
                               color={themeToggle === "light" ? "black" : "white"}
                               onClick={() => {
-                                LikePostHandler(item);
+                                dispatch(LikePostHandler({ post: item, token: loggedInUserToken }));
                               }}
                             />
                           )}
@@ -99,20 +99,20 @@ export const UserPostCard = () => {
                           <BsBookmarkFill
                             size={25}
                             color={themeToggle === "light" ? "black" : "white"}
-                            onClick={() => RemoveFromBookmark(item)}
+                            onClick={() => dispatch(RemoveFromBookmark({ post: item, token: loggedInUserToken }))}
                           />
                         ) : (
                           <BsBookmark
                             size={25}
                             color={themeToggle === "light" ? "black" : "white"}
-                            onClick={() => AddToBookmark(item)}
+                            onClick={() => dispatch(AddToBookmark({ post: item, token: loggedInUserToken }))}
                           />
                         )
                       ) : (
                         <BsBookmark
                           size={25}
                           color={themeToggle === "light" ? "black" : "white"}
-                          onClick={() => AddToBookmark(item)}
+                          onClick={() => dispatch(AddToBookmark({ post: item, token: loggedInUserToken }))}
                         />
                       )}
                     </div>

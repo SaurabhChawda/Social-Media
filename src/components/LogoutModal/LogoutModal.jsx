@@ -1,8 +1,22 @@
 import "./LogoutModal.css";
-import { useAuth } from "../../Contexts/Index";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logOut } from "../../features/Auth/AuthSlice";
 export const LogoutModal = ({ value }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { logoutModal, setLogoutModal } = value;
-  const { logoutCredentials } = useAuth();
+
+  const logoutCredentials = () => {
+    try {
+      dispatch(logOut());
+      localStorage?.removeItem("login");
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="overlay">
       <div className="modal">

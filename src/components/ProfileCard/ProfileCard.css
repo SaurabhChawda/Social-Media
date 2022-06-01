@@ -30,6 +30,7 @@
   width: 20%;
 }
 .profileCard__img {
+  aspect-ratio: 1/1;
   width: 100%;
   border-radius: 50%;
 }
@@ -85,7 +86,8 @@
     margin-top: 1rem;
     justify-content: center;
   }
-  .profileCard-userbio, .profileCard-userFullName {
+  .profileCard-userbio,
+  .profileCard-userFullName {
     text-align: center;
   }
   .profileCard-userWebsiteLink {

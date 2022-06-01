@@ -1,20 +1,24 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { useAuth } from "./Index";
+import { useSelector } from "react-redux";
 const ThemeContext = createContext(null);
 
 const ThemeProvider = ({ children }) => {
-  const { authState } = useAuth();
+  const loggedInUser = useSelector((state) => state.auth.isUserLoggedIn);
   const [themeToggle, setThemeToggle] = useState("light");
 
   useEffect(() => {
-    if (authState.isUserLoggedIn) {
-      localStorage.setItem("theme", JSON.stringify(themeToggle));
+    if (!loggedInUser) {
+      localStorage.setItem("theme", JSON.stringify("light"));
     }
-  }, [authState, themeToggle]);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(themeToggle));
+  }, [loggedInUser, themeToggle]);
 
   useEffect(() => {
     setThemeToggle(JSON.parse(localStorage.getItem("theme")));
-  }, [authState]);
+  }, []);
 
   return <ThemeContext.Provider value={{ themeToggle, setThemeToggle }}>{children}</ThemeContext.Provider>;
 };

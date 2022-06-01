@@ -2,9 +2,13 @@ import "./login.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Nav, NavForTab } from "../../components/Index";
-import { useAuth } from "../../Contexts/Index";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/Auth/AuthSlice";
+import { useNavigate } from "react-router-dom";
+
 export function Login() {
-  const { loginCredentials } = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userLogin, setUserLogin] = useState({ username: "", password: "" });
   const [showpassword, setShowPassword] = useState("password");
 
@@ -14,6 +18,15 @@ export function Login() {
       console.log("Incorrect Password");
     } else {
       loginCredentials(user);
+    }
+  };
+
+  const loginCredentials = async (user) => {
+    try {
+      await dispatch(loginUser({ username: user.username, password: user.password })).unwrap();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -68,7 +81,7 @@ export function Login() {
                 <button className="login-form__btn--forget-password">Forget password ?</button>
               </div>
               <div className="login-form--submit">
-                <button className="login-form__btn--submit " onClick={(event) => loginHandler(event, userLogin)}>
+                <button className="login-form__btn--submit" onClick={(event) => loginHandler(event, userLogin)}>
                   Login
                 </button>
                 <button

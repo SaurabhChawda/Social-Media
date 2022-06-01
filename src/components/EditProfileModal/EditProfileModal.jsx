@@ -1,11 +1,14 @@
 import "./EditProfileModal.css";
 import { AiOutlineCamera, AiOutlineClose } from "react-icons/ai";
-import { useUser, useTheme } from "../../Contexts/Index";
+import { useTheme } from "../../Contexts/Index";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { UpdateProfileHandler } from "../../features/Auth/AuthSlice.js";
 
 export const EditProfileModal = ({ value }) => {
+  const dispatch = useDispatch();
+  const loggedInUserToken = useSelector((state) => state.auth.token);
   const { user, editProfileModalOpen, setEditProfileModalopen } = value;
-  const { UpdateProfileHandler } = useUser();
   const { themeToggle } = useTheme();
   const [userImage, setUserImage] = useState(user.profile);
   const [userBio, setUserBio] = useState(user.bio);
@@ -85,13 +88,18 @@ export const EditProfileModal = ({ value }) => {
           <button
             className="edit-profile-card__btn"
             onClick={() => {
-              UpdateProfileHandler({
-                ...user.user,
-                profile: userImage,
-                bio: userBio,
-                username: userName,
-                website: userWebsite,
-              }),
+              dispatch(
+                UpdateProfileHandler({
+                  profile: {
+                    ...user.user,
+                    profile: userImage,
+                    bio: userBio,
+                    username: userName,
+                    website: userWebsite,
+                  },
+                  token: { loggedInUserToken },
+                })
+              ),
                 setEditProfileModalopen(!editProfileModalOpen);
             }}
           >
