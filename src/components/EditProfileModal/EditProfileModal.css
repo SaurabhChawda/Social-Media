@@ -35,6 +35,9 @@
   width: 2.5rem;
   border-radius: 50%;
 }
+.edit-profile-card__img{
+  margin: 1rem;
+}
 .edit-profile-card--userName {
   color: var(--primary-theme-color);
   font-size: var(--font-size-small);
@@ -81,4 +84,7 @@
   background-color: var(--primary-color);
   padding: 8px 16px;
   font-size: var(--font-size-regular);
+}
+label{
+  color: var(--primary-theme-color);
 }

@@ -2,18 +2,26 @@ import "./PostPageCard.css";
 import { AiOutlineCamera } from "react-icons/ai";
 import { useUser } from "../../Contexts/Index";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const PostPageCard = () => {
-  const { CreateUserPost } = useUser();
+  const {
+    CreatePostHandler,
+    state: { user },
+  } = useUser();
+  const navigate = useNavigate();
   const [postImage, setPostImage] = useState(" ");
   const [postCaption, setPostCaption] = useState(" ");
   const [disblebtn, setDisableBtn] = useState(true);
+
   const fileHandler = (e) => {
     setPostImage(URL.createObjectURL(e.target.files[0]));
   };
   useEffect(() => {
+    console.log("Test");
     if (postImage !== " " && postCaption !== " ") {
       setDisableBtn(!disblebtn);
+      console.log("Test again");
     }
   }, [postImage, postCaption]);
 
@@ -23,8 +31,8 @@ export const PostPageCard = () => {
         <div className="post-card--container">
           <div className="post-card__header--container">
             <div className="post-card-profile--container">
-              <img className="post-card__img--profile" src="/assets/image/Profile/Adarsh.jpg" />
-              <p className="post-card--userName">Saurabh Chawda</p>
+              <img className="post-card__img--profile" src={user.profile} />
+              <p className="post-card--userName">{user.username}</p>
             </div>
           </div>
           <hr></hr>
@@ -35,7 +43,7 @@ export const PostPageCard = () => {
                 <AiOutlineCamera size={60} color="#6521ff" />
                 <input
                   type="file"
-                  accept="image/png, image/jpg,image/jpeg"
+                  accept="image/*"
                   className="post-card__input--post"
                   id="input__img"
                   onChange={(e) => fileHandler(e)}
@@ -56,7 +64,15 @@ export const PostPageCard = () => {
           <button
             className="post-card__btn"
             disabled={disblebtn}
-            onClick={() => CreateUserPost({ image: postImage, caption: postCaption })}
+            onClick={() => {
+              CreatePostHandler({
+                image: postImage,
+                caption: postCaption,
+                profile: user.profile,
+                username: user.username,
+              }),
+                navigate("/profile");
+            }}
           >
             Post
           </button>

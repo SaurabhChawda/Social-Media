@@ -71,13 +71,11 @@ export const createPostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          errors: ["The username you entered is not Registered. Not Found error"],
         }
       );
     }
-    const { postData } = JSON.parse(request.requestBody);
+    const postData = JSON.parse(request.requestBody);
     const post = {
       _id: uuid(),
       ...postData,
@@ -116,9 +114,7 @@ export const editPostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          errors: ["The username you entered is not Registered. Not Found error"],
         }
       );
     }
@@ -161,24 +157,16 @@ export const likePostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          errors: ["The username you entered is not Registered. Not Found error"],
         }
       );
     }
     const postId = request.params.postId;
     const post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likedBy.some((currUser) => currUser._id === user._id)) {
-      return new Response(
-        400,
-        {},
-        { errors: ["Cannot like a post that is already liked. "] }
-      );
+      return new Response(400, {}, { errors: ["Cannot like a post that is already liked. "] });
     }
-    post.likes.dislikedBy = post.likes.dislikedBy.filter(
-      (currUser) => currUser._id !== user._id
-    );
+    post.likes.dislikedBy = post.likes.dislikedBy.filter((currUser) => currUser._id !== user._id);
     post.likes.likeCount += 1;
     post.likes.likedBy.push(user);
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
@@ -207,32 +195,20 @@ export const dislikePostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          errors: ["The username you entered is not Registered. Not Found error"],
         }
       );
     }
     const postId = request.params.postId;
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likeCount === 0) {
-      return new Response(
-        400,
-        {},
-        { errors: ["Cannot decrement like less than 0."] }
-      );
+      return new Response(400, {}, { errors: ["Cannot decrement like less than 0."] });
     }
     if (post.likes.dislikedBy.some((currUser) => currUser._id === user._id)) {
-      return new Response(
-        400,
-        {},
-        { errors: ["Cannot dislike a post that is already disliked. "] }
-      );
+      return new Response(400, {}, { errors: ["Cannot dislike a post that is already disliked. "] });
     }
     post.likes.likeCount -= 1;
-    const updatedLikedBy = post.likes.likedBy.filter(
-      (currUser) => currUser._id !== user._id
-    );
+    const updatedLikedBy = post.likes.likedBy.filter((currUser) => currUser._id !== user._id);
     post.likes.dislikedBy.push(user);
     post = { ...post, likes: { ...post.likes, likedBy: updatedLikedBy } };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
@@ -260,9 +236,7 @@ export const deletePostHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          errors: ["The username you entered is not Registered. Not Found error"],
         }
       );
     }
@@ -273,9 +247,7 @@ export const deletePostHandler = function (schema, request) {
         400,
         {},
         {
-          errors: [
-            "Cannot delete a Post doesn't belong to the logged in User.",
-          ],
+          errors: ["Cannot delete a Post doesn't belong to the logged in User."],
         }
       );
     }

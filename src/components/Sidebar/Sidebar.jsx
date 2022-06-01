@@ -14,10 +14,10 @@ export function Sidebar() {
             <MdOutlineHome size={30} color={themeToggle === "light" ? "black" : "white"} />
             <h3 className="sidebar--content">Home</h3>
           </NavLink>
-          <li className="sidebar__list">
+          <NavLink to="/bookmark" className="sidebar__list">
             <BsBookmark size={25} color={themeToggle === "light" ? "black" : "white"} />
             <h3 className="sidebar--content">BookMarks</h3>
-          </li>
+          </NavLink>
           <NavLink to="/post" className="sidebar__list">
             <MdOutlinePostAdd size={30} color={themeToggle === "light" ? "black" : "white"} />
             <h3 className="sidebar--content">Post</h3>

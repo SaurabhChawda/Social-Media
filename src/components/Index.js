@@ -13,3 +13,4 @@ export { UserPostCard } from "./UserPostCard/UserPostCard.jsx";
 export { EditDeleteModal } from "./EditDeleteModal/EditDeleteModal.jsx";
 export { EditPostModal } from "./EditPostModal/EditPostModal.jsx";
 export { EditProfileModal } from "./EditProfileModal/EditProfileModal.jsx";
+export { BookmarkCard } from "./BookmarkCard/BookmarkCard.jsx";

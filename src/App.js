@@ -1,5 +1,5 @@
 import "./App.css";
-import { Home, Post, Profile, Login, SignUp } from "./Pages/Index";
+import { Home, Post, Profile, Login, SignUp,Bookmark } from "./Pages/Index";
 import { PrivateRoute } from "./PrivateRoute/PrivateRoute.jsx";
 import { Route, Routes } from "react-router-dom";
 import { useTheme } from "./Contexts/Index";
@@ -31,6 +31,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/bookmark"
+          element={
+            <PrivateRoute>
+              <Bookmark />
             </PrivateRoute>
           }
         ></Route>

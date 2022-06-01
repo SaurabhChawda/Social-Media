@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export const EditProfileModal = ({ value }) => {
   const { user, editProfileModalOpen, setEditProfileModalopen } = value;
-  const { UpdateUserProfile } = useUser();
+  const { UpdateProfileHandler } = useUser();
   const { themeToggle } = useTheme();
   const [userImage, setUserImage] = useState(user.profile);
   const [userBio, setUserBio] = useState(user.bio);
@@ -22,7 +22,7 @@ export const EditProfileModal = ({ value }) => {
         <div className="edit-profile-card--container">
           <div className="edit-profile-card__header--container">
             <div className="edit-profile-card-profile--container">
-              <img className="edit-profile-card__img--profile" src="/assets/image/Profile/Adarsh.jpg" />
+              <img className="edit-profile-card__img--profile" src={user.profile} />
               <p className="edit-profile-card--userName">{user.firstName + " " + user.lastName}</p>
             </div>
             <div className="edit-profile-card-icon--container">
@@ -85,7 +85,7 @@ export const EditProfileModal = ({ value }) => {
           <button
             className="edit-profile-card__btn"
             onClick={() => {
-              UpdateUserProfile({
+              UpdateProfileHandler({
                 ...user.user,
                 profile: userImage,
                 bio: userBio,

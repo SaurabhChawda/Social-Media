@@ -1,0 +1,19 @@
+.bookmark-page--Container {
+  font-family: "Montserrat", sans-serif;
+  display: grid;
+  height: 100%;
+  grid-template-rows: 3.5rem auto;
+  grid-template-columns: 250px auto;
+  grid-template-areas:
+    "header header header"
+    "sidebar main main";
+}
+
+.bookmark__main--container {
+  grid-area: main;
+  min-height: calc(100vh - 3.5rem);
+  background-color: var(--secondary-bg-color);
+  padding-bottom: 5rem;
+}
+
+/* home Ends Here */

@@ -4,7 +4,7 @@ const SearchContext = createContext();
 
 const SearchProvider = ({ children }) => {
   const {
-    state: { allPost },
+    state: { usersPostsList },
   } = useUser();
   const {
     state: { filteredData },
@@ -13,9 +13,9 @@ const SearchProvider = ({ children }) => {
   const [updatedData, setUpdatedData] = useState([]);
 
   useEffect(() => {
-    filteredData.length !== 0 ? setUpdatedData(filteredData) : setUpdatedData(allPost);
-  }, [filteredData, allPost]);
-  return <SearchContext.Provider value={{ updatedData, setUpdatedData, allPost }}>{children}</SearchContext.Provider>;
+    filteredData.length !== 0 ? setUpdatedData(filteredData) : setUpdatedData(usersPostsList);
+  }, [filteredData, usersPostsList]);
+  return <SearchContext.Provider value={{ updatedData, setUpdatedData, usersPostsList }}>{children}</SearchContext.Provider>;
 };
 
 const useSearch = () => useContext(SearchContext);

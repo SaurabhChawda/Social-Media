@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 export const Filter = () => {
   const [filterableData, setFilterableData] = useState();
   const {
-    state: { allPost },
+    state: { usersPostsList },
   } = useUser();
 
   const { dispatch } = useFilter();
   useEffect(() => {
-    setFilterableData(allPost);
-  }, [allPost]);
+    setFilterableData(usersPostsList);
+  }, [usersPostsList]);
 
   return (
     <div className="filter--container">
@@ -21,8 +21,13 @@ export const Filter = () => {
           </button>
         </li>
         <li className="filter__list-item">
-          <button className="filter__btn" onClick={() => dispatch({ type: "Oldest", payload: filterableData })}>
+          <button className="filter__btn" onClick={() => dispatch({ type: "Trending", payload: filterableData })}>
             Trending
+          </button>
+        </li>
+        <li className="filter__list-item">
+          <button className="filter__btn" onClick={() => dispatch({ type: "Oldest", payload: filterableData })}>
+            Oldest
           </button>
         </li>
         <li className="filter__list-item"></li>

@@ -10,7 +10,9 @@ export const NavForTab = () => {
         <Link to="/">
           <MdOutlineHome size={30} color="white" />
         </Link>
-        <BsBookmark size={20} color="white" />
+        <Link to="/bookmark">
+          <BsBookmark size={20} color="white" />
+        </Link>
         <Link to="/post">
           <MdOutlinePostAdd size={30} color="white" />
         </Link>
