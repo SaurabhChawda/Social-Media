@@ -35,7 +35,7 @@ function App() {
                 <Home />
               </PrivateRoute>
             }
-          ></Route>
+          />
           <Route
             path="/post"
             element={
@@ -43,7 +43,7 @@ function App() {
                 <Post />
               </PrivateRoute>
             }
-          ></Route>
+          />
           <Route
             path="/profile"
             element={
@@ -51,7 +51,7 @@ function App() {
                 <Profile />
               </PrivateRoute>
             }
-          ></Route>
+          />
           <Route
             path="/bookmark"
             element={
@@ -59,9 +59,9 @@ function App() {
                 <Bookmark />
               </PrivateRoute>
             }
-          ></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/SignUp" element={<SignUp />}></Route>
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
         </Routes>
       </div>
     </div>
