@@ -1,14 +1,18 @@
 import "./SuggestedUser.css";
-import { useUser } from "../../Contexts/Index";
+import { useDispatch, useSelector } from "react-redux";
+import { FollowUserHandler, UnfollowUserHandler } from "../../features/Users/UserSlice.js";
+
 export const SuggestedUser = () => {
-  const {
-    state: { usersList, user, userFollowers, userFollowing },
-    FollowUserHandler,
-    UnfollowUserHandler,
-  } = useUser();
+  const dispatch = useDispatch();
+  const usersList = useSelector((state) => state.user.usersList);
+  const user = useSelector((state) => state.auth.user);
+  const loggedInUserToken = useSelector((state) => state.auth.token);
+  const userFollowing = useSelector((state) => state.user.userFollowing);
+
   return (
     <div>
       {usersList.length !== 0 &&
+        user !== null &&
         usersList
           .filter((filteritem) => filteritem._id !== user._id)
           .map((item) => {
@@ -25,11 +29,17 @@ export const SuggestedUser = () => {
                 </div>
                 <div className="suggestedUser__btn-Container">
                   {userFollowing.some((value) => value._id === item._id) ? (
-                    <button className="suggestedUser__btn-follow" onClick={() => UnfollowUserHandler(item)}>
+                    <button
+                      className="suggestedUser__btn-follow"
+                      onClick={() => dispatch(UnfollowUserHandler({ userId: item, token: loggedInUserToken }))}
+                    >
                       Unfollow
                     </button>
                   ) : (
-                    <button className="suggestedUser__btn-follow" onClick={() => FollowUserHandler(item)}>
+                    <button
+                      className="suggestedUser__btn-follow"
+                      onClick={() => dispatch(FollowUserHandler({ userId: item, token: loggedInUserToken }))}
+                    >
                       Follow
                     </button>
                   )}

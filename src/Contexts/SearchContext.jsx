@@ -1,11 +1,10 @@
 import { createContext, useEffect, useState, useContext } from "react";
-import { useUser, useFilter } from "./Index";
+import { useFilter } from "./Index";
+import { useSelector } from "react-redux";
 const SearchContext = createContext();
 
 const SearchProvider = ({ children }) => {
-  const {
-    state: { usersPostsList },
-  } = useUser();
+  const usersPostsList = useSelector((state) => state.post.usersPostsList);
   const {
     state: { filteredData },
   } = useFilter();
@@ -15,7 +14,9 @@ const SearchProvider = ({ children }) => {
   useEffect(() => {
     filteredData.length !== 0 ? setUpdatedData(filteredData) : setUpdatedData(usersPostsList);
   }, [filteredData, usersPostsList]);
-  return <SearchContext.Provider value={{ updatedData, setUpdatedData, usersPostsList }}>{children}</SearchContext.Provider>;
+  return (
+    <SearchContext.Provider value={{ updatedData, setUpdatedData, usersPostsList }}>{children}</SearchContext.Provider>
+  );
 };
 
 const useSearch = () => useContext(SearchContext);

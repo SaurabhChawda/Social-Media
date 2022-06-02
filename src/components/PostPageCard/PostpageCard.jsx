@@ -1,14 +1,14 @@
 import "./PostPageCard.css";
 import { AiOutlineCamera } from "react-icons/ai";
-import { useUser } from "../../Contexts/Index";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { CreatePostHandler } from "../../features/Posts/PostSlice";
+import { useSelector } from "react-redux";
 export const PostPageCard = () => {
-  const {
-    CreatePostHandler,
-    state: { user },
-  } = useUser();
+  const user = useSelector((state) => state.auth.user);
+  const loggedInUserToken = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [postImage, setPostImage] = useState(" ");
   const [postCaption, setPostCaption] = useState(" ");
@@ -18,12 +18,10 @@ export const PostPageCard = () => {
     setPostImage(URL.createObjectURL(e.target.files[0]));
   };
   useEffect(() => {
-    console.log("Test");
     if (postImage !== " " && postCaption !== " ") {
       setDisableBtn(!disblebtn);
-      console.log("Test again");
     }
-  }, [postImage, postCaption]);
+  }, [loggedInUserToken, postImage, postCaption]);
 
   return (
     <div className="post">
@@ -65,12 +63,17 @@ export const PostPageCard = () => {
             className="post-card__btn"
             disabled={disblebtn}
             onClick={() => {
-              CreatePostHandler({
-                image: postImage,
-                caption: postCaption,
-                profile: user.profile,
-                username: user.username,
-              }),
+              dispatch(
+                CreatePostHandler({
+                  post: {
+                    image: postImage,
+                    caption: postCaption,
+                    profile: user.profile,
+                    username: user.username,
+                  },
+                  token: { loggedInUserToken },
+                })
+              ),
                 navigate("/profile");
             }}
           >

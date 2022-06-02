@@ -27,8 +27,8 @@
   font-size: 1.2rem;
   padding: 0 8px;
 }
-.user-post-card__btn--demo{
-  padding:2px 4px ;
+.user-post-card__btn--demo {
+  padding: 2px 4px;
 }
 .user-post-card-Content--container {
   padding: 0.5rem;
@@ -36,7 +36,7 @@
 .user-post-card__image {
   width: 100%;
 }
-.user-post-card-icon{
+.user-post-card-icon {
   cursor: pointer;
   position: relative;
 }
@@ -54,13 +54,13 @@
 .user-post-card--icon__list {
   cursor: pointer;
 }
-.user-post-card-like--icon{
+.user-post-card-like--icon {
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
-.user-post-card-like--icon-text{
+.user-post-card-like--icon-text {
   color: var(--primary-theme-color);
 }
 @media screen and (max-width: 400px) {

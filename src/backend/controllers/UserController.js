@@ -119,7 +119,7 @@ export const bookmarkPostHandler = function (schema, request) {
     if (isBookmarked) {
       return new Response(400, {}, { errors: ["This Post is already bookmarked"] });
     }
-    user.bookmarks.push(post);
+    user.bookmarks.push(JSON.parse(JSON.stringify(post)));
     this.db.users.update({ _id: user._id }, { ...user, updatedAt: formatDate() });
     return new Response(200, {}, { bookmarks: user.bookmarks });
   } catch (error) {

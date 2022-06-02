@@ -1,10 +1,13 @@
 import "./signUp.css";
 import { useState } from "react";
+import { signUpUser } from "../../features/Auth/AuthSlice.js";
 import { Nav, NavForTab } from "../../components/Index";
-import { useAuth } from "../../Contexts/Index";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 export function SignUp() {
-  const { signUpCredentials } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showpassword, setShowPassword] = useState("password");
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -13,17 +16,39 @@ export function SignUp() {
     password: "",
     confirmPassword: "",
   });
+
   const newUserHandler = (event) => {
     return setNewUser({ ...newUser, [event.target.name]: event.target.value });
   };
   const submitHandler = (event, newUser) => {
     event.preventDefault();
-    if (newUser.password === newUser.confirmPassword) {
-      signUpCredentials(newUser);
+    if (newUser.username === "" && newUser.lastName === "" && newUser.password === "" && newUser.password === "") {
+      console.log("All Fileds are Required");
     } else {
-      console.log("Incorrect Password");
+      if (newUser.password === newUser.confirmPassword) {
+        signUpCredentials(newUser);
+      } else {
+        console.log("Incorrect Password");
+      }
     }
   };
+
+  const signUpCredentials = async (newUser) => {
+    try {
+      await dispatch(
+        signUpUser({
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          username: newUser.username,
+          password: newUser.password,
+        })
+      ).unwrap();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="signup-page--Container">
       <Nav showSearchBar={false} showLoginBtn={false} showThemeBtn={true} />

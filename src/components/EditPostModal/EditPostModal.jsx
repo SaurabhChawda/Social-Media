@@ -1,11 +1,14 @@
 import "./EditPostModal.css";
 import { AiOutlineCamera, AiOutlineClose } from "react-icons/ai";
-import { useUser, useTheme } from "../../Contexts/Index";
+import { useTheme } from "../../Contexts/Index";
 import { useState } from "react";
-
+import { UpdatePostHandler } from "../../features/Posts/PostSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 export const EditPostModal = ({ value }) => {
-  const { item, editModalOpen, setEditModalOpen, editDeleteModal, setEditDeleteModal } = value;
-  const { UpdatePostHandler } = useUser();
+  const dispatch = useDispatch();
+  const loggedInUserToken = useSelector((state) => state.auth.token);
+  const { item, editModalOpen, setEditModalOpen } = value;
+
   const { themeToggle } = useTheme();
   const [postImage, setPostImage] = useState(item.image);
   const [postCaption, setPostCaption] = useState(item.caption);
@@ -30,7 +33,6 @@ export const EditPostModal = ({ value }) => {
                   color={themeToggle === "light" ? "dark" : "white"}
                   onClick={() => {
                     setEditModalOpen(!editModalOpen);
-                    setEditDeleteModal(!editDeleteModal);
                   }}
                 />
               </span>
@@ -66,9 +68,13 @@ export const EditPostModal = ({ value }) => {
           <button
             className="edit-post-card__btn"
             onClick={() => {
-              UpdatePostHandler({ ...item, image: postImage, caption: postCaption }),
-                setEditModalOpen(!editModalOpen),
-                setEditDeleteModal(!editDeleteModal);
+              dispatch(
+                UpdatePostHandler({
+                  post: { ...item, image: postImage, caption: postCaption },
+                  token: loggedInUserToken,
+                })
+              ),
+                setEditModalOpen(!editModalOpen);
             }}
           >
             Update Post

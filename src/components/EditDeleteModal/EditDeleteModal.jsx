@@ -1,11 +1,14 @@
 import "./EditDeleteModal.css";
-import { useUser } from "../../Contexts/Index";
 import { EditPostModal } from "../Index";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DeletePostHandler } from "../../features/Posts/PostSlice.js";
+
 export const EditDeleteModal = ({ value }) => {
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.auth);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const { item, editDeleteModal, setEditDeleteModal } = value;
-  const { DeletePostHandler } = useUser();
   return (
     <div className="edit-modal">
       <button
@@ -20,13 +23,14 @@ export const EditDeleteModal = ({ value }) => {
       <button
         className="edit-modal__btn--demo edit-modal__btn--no"
         onClick={() => {
-          DeletePostHandler(item);
+          dispatch(DeletePostHandler({ post: item, user: loggedInUser }));
+          setEditDeleteModal(!editDeleteModal);
         }}
       >
         Delete
       </button>
       {editModalOpen && (
-        <EditPostModal value={{ item, editModalOpen, setEditModalOpen, editDeleteModal, setEditDeleteModal }} />
+        <EditPostModal value={{ item, editDeleteModal, setEditDeleteModal, editModalOpen, setEditModalOpen }} />
       )}
     </div>
   );
