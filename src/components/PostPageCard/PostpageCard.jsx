@@ -1,6 +1,6 @@
 import "./PostPageCard.css";
 import { AiOutlineCamera } from "react-icons/ai";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { CreatePostHandler } from "../../features/Posts/PostSlice";
@@ -12,16 +12,27 @@ export const PostPageCard = () => {
   const navigate = useNavigate();
   const [postImage, setPostImage] = useState(" ");
   const [postCaption, setPostCaption] = useState(" ");
-  const [disblebtn, setDisableBtn] = useState(true);
 
   const fileHandler = (e) => {
     setPostImage(URL.createObjectURL(e.target.files[0]));
   };
-  useEffect(() => {
+
+  const uploadPost = () => {
     if (postImage !== " " && postCaption !== " ") {
-      setDisableBtn(!disblebtn);
+      dispatch(
+        CreatePostHandler({
+          post: {
+            image: postImage,
+            caption: postCaption,
+            profile: user.profile,
+            username: user.username,
+          },
+          token: { loggedInUserToken },
+        })
+      ),
+        navigate("/profile");
     }
-  }, [loggedInUserToken, postImage, postCaption]);
+  };
 
   return (
     <div className="post">
@@ -59,24 +70,7 @@ export const PostPageCard = () => {
           </div>
         </div>
         <div className="post-card__btn--container">
-          <button
-            className="post-card__btn"
-            disabled={disblebtn}
-            onClick={() => {
-              dispatch(
-                CreatePostHandler({
-                  post: {
-                    image: postImage,
-                    caption: postCaption,
-                    profile: user.profile,
-                    username: user.username,
-                  },
-                  token: { loggedInUserToken },
-                })
-              ),
-                navigate("/profile");
-            }}
-          >
+          <button className="post-card__btn" onClick={() => uploadPost()}>
             Post
           </button>
         </div>
